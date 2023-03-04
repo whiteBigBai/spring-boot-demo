@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.T_UserMapper">
+    <resultMap id="baseResultMap1" type="T_User">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="pwd" column="pwd"></result>
+        <collection property="orderList" ofType="org.example.springboot.entity.T_Order1"
+                    column="id" select="org.example.springboot.mapper.T_OrderMapper.selectOrderById"></collection>
+    </resultMap>
+
+    <resultMap id="baseResultMap2" type="T_User">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="pwd" column="pwd"></result>
+        <collection property="orderList" ofType="org.example.springboot.entity.T_Order2">
+            <id property="orderId" column="orderId"></id>
+            <result property="orderNum" column="orderNum"></result>
+        </collection>
+    </resultMap>
+
+    <select id="selectUserOrderById1" resultMap="baseResultMap1" parameterType="java.lang.Integer">
+        select * from t_user where id =#{id}
+    </select>
+
+    <select id="selectUserOrderById2" resultMap="baseResultMap2" parameterType="java.lang.Integer">
+            SELECT u.*,o.id as orderId,o.orderNum FROM `t_user` u,`t_order` o
+            WHERE
+            u.id=o.`userId` AND u.id=#{id}
+    </select>
+
+</mapper>
