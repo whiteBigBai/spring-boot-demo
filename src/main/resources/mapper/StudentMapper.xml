@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.springboot.mapper.StudentMapper">
+    <resultMap id="baseResultMap1" type="Student">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <association property="studentCard" column="cardId" javaType="org.example.springboot.entity.StudentCard"
+                     select="org.example.springboot.mapper.StudentCardMapper.selectStuCardById"/>
+    </resultMap>
+
+    <resultMap id="baseResultMap2" type="Student">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <association property="studentCard" javaType="org.example.springboot.entity.StudentCard">
+            <id property="id" column="id"></id>
+            <result property="studentId" column="studentId"></result>
+        </association>
+    </resultMap>
+
+    <select id="selectStuById1" resultMap="baseResultMap1">
+        select * from student WHERE id = #{id};
+    </select>
+
+    <select id="selectStuById2" resultMap="baseResultMap2">
+        SELECT s.*,sc.studentId
+        FROM student s,student_card sc
+        WHERE
+            s.cardId = sc.id AND s.id=#{id}
+    </select>
+
+</mapper>

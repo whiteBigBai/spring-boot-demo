@@ -1,7 +1,7 @@
 package org.example.springboot.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.example.springboot.entity.ScProduct;
+import org.example.springboot.entity.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,11 +11,11 @@ import java.util.List;
  */
 @Repository
 @Mapper
-public interface ScProductMapper {
+public interface ProductMapper {
     /**
      * 查询所有数据
      *
      * @return
      */
-    List<ScProduct> selectAll();
+    List<Product> selectAll();
 }

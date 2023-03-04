@@ -8,7 +8,7 @@ import java.util.Date;
  * @author bailiang
  */
 @Data
-public class ScProduct {
+public class Product {
     private int id;
     private String name;
     private int number;
